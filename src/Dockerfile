@@ -34,6 +34,6 @@ RUN dotnet publish -o out -c Release
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine
 WORKDIR /app
 
-COPY --from=builder /src ./
+COPY --from=builder /src/out ./
 
-ENTRYPOINT ["dotnet", "./out/web-api.dll"]
+ENTRYPOINT ["dotnet", "web-api.dll"]
