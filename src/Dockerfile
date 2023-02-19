@@ -29,11 +29,11 @@ RUN dotnet restore
 
 COPY . .
 
-RUN dotnet publish -o out -c Release
+RUN dotnet publish -o out -c Release -p:PublishTrimmed=true --runtime alpine.3.16-x64
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine
+FROM mcr.microsoft.com/dotnet/runtime-deps:7.0-alpine
 WORKDIR /app
 
 COPY --from=builder /src/out ./
 
-ENTRYPOINT ["dotnet", "web-api.dll"]
+ENTRYPOINT ["./web-api"]
