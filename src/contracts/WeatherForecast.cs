@@ -1,4 +1,6 @@
-namespace web_api;
+﻿using System;
+
+namespace contracts;
 
 public class WeatherForecast
 {
