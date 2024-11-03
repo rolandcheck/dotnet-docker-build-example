@@ -20,7 +20,7 @@ RUN find .  \
 # restoring & building
 # copy files from prev stage
 # docker should be using cache if there are no new dependencies
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS builder
 WORKDIR /src
 
 COPY --from=ctx /source .
@@ -29,9 +29,9 @@ RUN dotnet restore
 
 COPY . .
 
-RUN dotnet publish -o out -c Release -p:PublishTrimmed=true --runtime alpine.3.16-x64
+RUN dotnet publish -o out -c Release --runtime linux-musl-x64
 
-FROM mcr.microsoft.com/dotnet/runtime-deps:7.0-alpine
+FROM mcr.microsoft.com/dotnet/runtime-deps:8.0-alpine
 WORKDIR /app
 
 COPY --from=builder /src/out ./
