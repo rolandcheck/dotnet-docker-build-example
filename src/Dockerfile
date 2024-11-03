@@ -31,7 +31,7 @@ COPY . .
 
 RUN dotnet publish -o out -c Release --runtime linux-musl-x64
 
-FROM mcr.microsoft.com/dotnet/runtime-deps:8.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
 WORKDIR /app
 
 COPY --from=builder /src/out ./
